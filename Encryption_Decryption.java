@@ -22,8 +22,8 @@ public class Encryption_Decryption {
 	}
 	
 	
-	public static void programLoop()
-	{
+	public static void programLoop() {
+        
 		System.out.print('\n');
 		int shift = -1;
 		char selection = '\0';
@@ -47,14 +47,14 @@ public class Encryption_Decryption {
 		System.out.print("\nEnter output file path, or type 'n' to output to the inputed file: \n > ");
 		outputFileName = scan.nextLine();
 		
-		if (outputFileName.charAt(0) == 'n') outputFileName = inputFileName; // bad - fix this.
+		if (outputFileName.charAt(0) == 'n') 
+            outputFileName = inputFileName; // bad - fix this.
 		// else nothing changes.
 		
 		System.out.println("\nRead from file: " + inputFileName);
 		System.out.println("Wrote to file:	" + outputFileName);
 		
-		switch (selection)
-		{
+		switch (selection) {
 			case 'e':
 				writeEncryptionToFile(inputFileName, outputFileName, shift);
 				break;
@@ -74,8 +74,8 @@ public class Encryption_Decryption {
 	
 	
 	/* Function writes the excrypted message to an output file. */
-	public static void writeEncryptionToFile(String inputFileName, String outputFileName, int shift)
-	{
+	public static void writeEncryptionToFile(String inputFileName, String outputFileName, int shift) {
+        
 		String contents = getFileContents(inputFileName);
 		String encryptedText = encryptString(contents, shift);
 		BufferedWriter writeFile;
@@ -93,8 +93,8 @@ public class Encryption_Decryption {
 	
 	
 	/* Function writes the decrypted message to an output file. */
-	public static void writeDecryptionToFile(String inputFileName, String outputFileName, int shift)
-	{
+	public static void writeDecryptionToFile(String inputFileName, String outputFileName, int shift) {
+        
 		String contents = getFileContents(inputFileName);
 		String decryptedText = decryptString(contents, shift);
 		BufferedWriter writeFile;
@@ -113,8 +113,8 @@ public class Encryption_Decryption {
 	
 	/* Function to open and read the file and storing the contents
 	 	in a String, and returing the string */
-	public static String getFileContents(String fileName)
-	{
+	public static String getFileContents(String fileName) {
+        
 		Scanner readFile;
 		String contents = "";
 		
@@ -133,17 +133,16 @@ public class Encryption_Decryption {
 	
 	
 	/* Function to encrypt and return a passed String */
-	public static String encryptString(String text, int shift)
-	{
+	public static String encryptString(String text, int shift) {
+        
 		char[] encryptedText = new char[text.length()];
 		int i = 0;
 		int j = 0;
 		
 		// apply the character shift to each character
-		for (i = 0; i < text.length(); i++)
-		{
-			if (text.charAt(i) != ' ')
-			{
+		for (i = 0; i < text.length(); i++) {
+            
+			if (text.charAt(i) != ' ') {
 				encryptedText[j] = determineNextCharInEncryption(text.charAt(i), shift);
 			}
 			
@@ -159,17 +158,16 @@ public class Encryption_Decryption {
 	
 	
 	/* Function to decrypt and return a passed String */
-	public static String decryptString(String text, int shift)
-	{
+	public static String decryptString(String text, int shift) {
+        
 		char[] decryptedText = new char[text.length()];
 		int i = 0;
 		int j = 0;
 		
 		// apply the character shift to character
-		for (i = 0; i < text.length(); i++)
-		{
-			if (text.charAt(i) != ' ')
-			{
+		for (i = 0; i < text.length(); i++) {
+            
+			if (text.charAt(i) != ' ') {
 				decryptedText[j] = determineNextCharInDecryption(text.charAt(i), shift);
 			}
 			
@@ -186,16 +184,15 @@ public class Encryption_Decryption {
 	
 	/* Finds the next character, applying the shift,
 	 * and calling the determineCase function. */
-	static char determineNextCharInEncryption(char ch, int shift)
-	{
+	static char determineNextCharInEncryption(char ch, int shift) {
+        
 		int findCase = determineCase(ch);
 		int asciiVal = -1;
 		
 		// lowercase
-		if (findCase == 1)
-		{
-			if ((int)ch + shift > 122)
-			{
+		if (findCase == 1) {
+            
+			if ((int)ch + shift > 122) {
 				asciiVal = 97 + (((int)ch + shift) - 122 - 1);
 				ch = (char)asciiVal;
 			}
@@ -205,10 +202,9 @@ public class Encryption_Decryption {
 		}
 		
 		// uppercase
-		else if (findCase == 0)
-		{
-			if ((int)ch + shift > 90)
-			{
+		else if (findCase == 0) {
+            
+			if ((int)ch + shift > 90) {
 				asciiVal = 65 + (((int)ch + shift) - 90 - 1);
 				ch = (char)asciiVal;
 			}
@@ -224,16 +220,15 @@ public class Encryption_Decryption {
 	
 	/* Finds the next character, applying the shift,
 		and calling the determineCase function. */
-	public static char determineNextCharInDecryption(char ch, int shift)
-	{
+	public static char determineNextCharInDecryption(char ch, int shift) {
+        
 		int findCase = determineCase(ch);
 		int asciiVal = -1;
 		
 		// lowercase
-		if (findCase == 1)
-		{
-			if ((int)ch - shift < 97)
-			{
+		if (findCase == 1) {
+            
+			if ((int)ch - shift < 97) {
 				asciiVal = 122 + (((int)ch - shift) - 97 + 1);
 				ch = (char)asciiVal;
 			}
@@ -243,10 +238,9 @@ public class Encryption_Decryption {
 		}
 		
 		// uppercase
-		else if (findCase == 0)
-		{
-			if ((int)ch - shift < 65)
-			{
+		else if (findCase == 0) {
+            
+			if ((int)ch - shift < 65) {
 				asciiVal = 90 + (((int)ch - shift) - 65 + 1);
 				ch = (char)asciiVal;
 			}
@@ -262,8 +256,7 @@ public class Encryption_Decryption {
 	
 	/* Function to determine the case of character
 	 	using ascii values.		*/
-	public static int determineCase(char ch)
-	{
+	public static int determineCase(char ch) {
 		
 		if ((int)ch >= 97 && (int)ch <= 122)
 			return 1;	// lowercase return.
